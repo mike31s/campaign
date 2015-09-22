@@ -13,4 +13,32 @@ var testdata = campaignContributions.splice(0,2);
 console.log(currencyToNum("$123.45") + currencyToNum("$20.00"));  // prints 143.45
 //contributionsByParty(data)
 
-console.log(testdata);
+
+function groupByParty(data)
+{
+    return _.groupBy(data, "Party");
+}
+
+function addAmount(memo, record)
+{
+    return memo += currencyToNum(record["Amount"]);   //memo is whats geting added to
+}
+
+function totalAmount(data)
+{
+
+    return _.reduce(data,addAmount,0);
+}
+
+
+
+
+var parties = groupByParty(campaignContributions);
+console.log((parties));
+console.log("*******");
+
+console.log(totalAmount(testdata));
+console.log("*************************");
+
+console.log(_.mapObject(parties,totalAmount ) );
+
